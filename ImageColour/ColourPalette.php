@@ -21,6 +21,20 @@ class ColourPalette {
 			 */
     		$_colourTable = array();
 
+            /**
+             * The threshold and threshold step. The threshold
+             * is the starting threshold which merges colours that have
+             * a similarity close enough to be under this threshold.
+             * 
+             * The threshold incrementations are how much we step by
+             * if we can't decrease our colours enough to fill our desired
+             * table size.
+             * 
+             * @param float
+             */
+    private $_threshold = 3.000,
+            $_thresholdIncrementations = 1.000;
+
     /**
      * Sets up the object
      * @param resource $image_resource - Our GDLib image resource
@@ -109,9 +123,6 @@ class ColourPalette {
      */
     private function _mergeFrequencyColours(array $frequencyTable, $targetTableLength = 5) {
 
-        $threshold = 3;
-        $thresholdIncrementations = 1;
-
         //Order by the RGB key index
         ksort($frequencyTable);
 
@@ -129,7 +140,7 @@ class ColourPalette {
                 $RGB1 = new RGB($currentRGBKey);
                 $RGB2 = new RGB($nextRGBKey);
 
-                if($RGB1->getDistance($RGB2) <= $threshold) {
+                if($RGB1->getDistance($RGB2) <= $this->_threshold) {
                     if($currentRGB > $nextRGB) {
                         //Eat it's frequency value and unset
                         $frequencyTable[$currentRGBKey] += $frequencyTable[$nextRGBKey];
@@ -141,8 +152,8 @@ class ColourPalette {
                     }
                 }
             } else {
-                //Add on our new threshold and repeat
-                $threshold += $thresholdIncrementations;
+                //Add on our new this->threshold and repeat
+                $this->_threshold += $this->_thresholdIncrementations;
                 reset($frequencyTable);
             }
         }
