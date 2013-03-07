@@ -11,5 +11,6 @@ Different speed and performance can be achieved by playing with $_threshold
 and $_thresholdIncrementations. The higher the number the greater the
 performance, the lower the number the better the accuracy.
 
+Requires GDLib
 
 - Mark Gannaway
