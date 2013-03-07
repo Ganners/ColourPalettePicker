@@ -99,7 +99,7 @@ class RGB {
  * Creates a colour scheme based on an image.
  * Not yet sure on implementation method
  */
-class Create_Colour_Scheme {
+class ColourPalette {
 
 			/**
 			 * The image resouces
@@ -201,10 +201,10 @@ class Create_Colour_Scheme {
      * The accuracy is determined by the threshold. The lower the threshold the more loops
      * and so the slower the calculation.
      */
-    private function _mergeFrequencyColours(array $frequencyTable, $targetTableLength = 10) {
+    private function _mergeFrequencyColours(array $frequencyTable, $targetTableLength = 5) {
 
         $threshold = 5;
-        $thresholdIncrementations = 5;
+        $thresholdIncrementations = 2;
 
         //Order by the RGB key index
         ksort($frequencyTable);
@@ -212,7 +212,7 @@ class Create_Colour_Scheme {
         //Set table pointer to the beginning
         reset($frequencyTable);
 
-        while(count($frequencyTable) >= $targetTableLength) {
+        while(count($frequencyTable) > $targetTableLength) {
             $currentRGB = current($frequencyTable);
             $currentRGBKey = key($frequencyTable);
             if(next($frequencyTable)) {
@@ -339,13 +339,9 @@ class Create_Colour_Scheme {
 
 }
 
-/****************
-Prototype Usage
-*****************/
+$im = imagecreatefromjpeg('test.jpg');
+$palette = new ColourPalette($im);
 
-$im = imagecreatefromjpeg('412446_486798961348575_2026754479_o.jpg');
-$colour_scheme = new Create_Colour_Scheme($im);
-
-foreach($colour_scheme->getColourScheme() as $colour) { ?>
+foreach($palette->getColourScheme() as $colour) { ?>
 	<div style="width: 30px; height: 30px; float: left; background: <?php echo $colour->getHex(); ?>"></div>
 <?php } ?>
