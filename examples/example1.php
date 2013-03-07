@@ -1,5 +1,9 @@
 <?php
 
+require_once('../autoload.php');
+
+use ImageColour\ColourPalette;
+
 $im = imagecreatefromjpeg('test.jpg');
 $palette = new ColourPalette($im);
 

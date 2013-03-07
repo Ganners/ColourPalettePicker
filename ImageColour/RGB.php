@@ -1,5 +1,7 @@
 <?php
 
+namespace ImageColour;
+
 /**
  * The RGB class, to hold our object better than
  * just storing it in an array.

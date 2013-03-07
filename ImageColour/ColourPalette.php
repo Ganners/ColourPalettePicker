@@ -1,5 +1,7 @@
 <?php
 
+namespace ImageColour;
+
 /**
  * Creates a colour scheme based on an image.
  */
@@ -107,8 +109,8 @@ class ColourPalette {
      */
     private function _mergeFrequencyColours(array $frequencyTable, $targetTableLength = 5) {
 
-        $threshold = 5;
-        $thresholdIncrementations = 2;
+        $threshold = 3;
+        $thresholdIncrementations = 1;
 
         //Order by the RGB key index
         ksort($frequencyTable);
